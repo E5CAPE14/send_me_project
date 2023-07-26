@@ -1,8 +1,6 @@
 package ru.team.sm.applicationsendme.controller;
 
-import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,7 +15,6 @@ import ru.team.sm.applicationsendme.service.abstracts.dto.MessageDtoService;
 import ru.team.sm.applicationsendme.service.exception.ChatException;
 import ru.team.sm.applicationsendme.service.exception.UserNotFoundException;
 
-import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +32,11 @@ public class ChatController {
         this.singleChatService = singleChatService;
         this.messageDtoService = messageDtoService;
         this.userService = userService;
+    }
+
+    @GetMapping("/single/all")
+    public ResponseEntity<?> getAllSingleCharDto(){
+        return ResponseEntity.ok(singleChatService.getAllChatDto());
     }
 
     @PostMapping("/single/create/")

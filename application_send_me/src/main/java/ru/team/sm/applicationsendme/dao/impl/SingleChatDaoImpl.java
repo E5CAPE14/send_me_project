@@ -8,11 +8,21 @@ import ru.team.sm.applicationsendme.dao.abstracts.SingleChatDao;
 import ru.team.sm.applicationsendme.dao.impl.util.SingleResultUtil;
 import ru.team.sm.applicationsendme.model.chat.SingleChat;
 
+import java.util.List;
 import java.util.Optional;
 @Repository
 public class SingleChatDaoImpl extends ReadWriteDaoImpl<SingleChat,Integer> implements SingleChatDao {
     @PersistenceContext
     private EntityManager entityManager;
+
+    @Override
+    public List<SingleChat> getAllSingleChatForUser(Integer userId) {
+        return entityManager.createQuery("SELECT sc FROM SingleChat sc where sc.userOne.id = :userId or sc.userTwo.id = :userId " +
+                "GROUP BY sc.id",SingleChat.class)
+                .setParameter("userId",userId)
+                .getResultList();
+    }
+
     @Override
     public void deleteByChatId(Integer id, Integer userId) {
         entityManager.createQuery(

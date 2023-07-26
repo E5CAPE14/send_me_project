@@ -18,6 +18,7 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addViewController("/user/users/all").setViewName("users");
         registry.addViewController("/user/*").setViewName("oneUser");
         registry.addViewController("/user/single/chat/*").setViewName("singleChatUser");
+        registry.addViewController("/user/friends").setViewName("friendsPage");
     }
 
     @Override

@@ -22,6 +22,9 @@ function getUserList(){
                     '                                            <form>' +
                     '                                            <input type="button" id="redirect-button" class="ui-button" value="Перейти" onclick=\'location.href="/user/' + data[i].id + '"\'/>' +
                     '                                            </form>' +
+                    '                                            <form>' +
+                    '                                            <input type="button" class="ui-button" value="Добавить в друзья" onclick="addFriend(' + data[i].id + ')" />' +
+                    '                                            </form>' +
                     '                                        </div>' +
                     '                                    </div>' +
                     '                                </div>' +
@@ -42,6 +45,9 @@ function getUserList(){
                     '                                            <form>' +
                     '                                            <input type="button" id="redirect-button" class="ui-button" value="Перейти" onclick=\'location.href="/user/' + data[i].id + '"\'/>' +
                     '                                            </form>' +
+                    '                                            <form>' +
+                    '                                            <input type="button" class="ui-button" value="Добавить в друзья" onclick="addFriend(' + data[i].id + ')" />' +
+                    '                                            </form>' +
                     '                                        </div>' +
                     '                                    </div>' +
                     '                                </div>' +
@@ -58,6 +64,9 @@ function getUserList(){
                     '                                            <form>' +
                     '                                            <input type="button" class="ui-button" value="Перейти" onclick=\'location.href="/user/' + data[i + 1].id + '"\'/>' +
                     '                                            </form>' +
+                    '                                            <form>' +
+                    '                                            <input type="button" class="ui-button" value="Добавить в друзья" onclick="addFriend(' + data[i + 1].id + ')" />' +
+                    '                                            </form>' +
                     '                                        </div>' +
                     '                                    </div>' +
                     '                                </div>' +
@@ -69,6 +78,14 @@ function getUserList(){
     });
 }
 
-function nextPage(){
-
+function addFriend(id){
+    console.log(id);
+    $.ajax({
+        url: '/api/friends/add',
+        dataType: 'json',
+        contentType: 'application/json',
+        type: 'POST',
+        cache: false,
+        data: JSON.stringify(id)
+    });
 }

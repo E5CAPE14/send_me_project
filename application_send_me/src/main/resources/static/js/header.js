@@ -1,6 +1,5 @@
 $(document).ready(function () {
     getUserForHead();
-    editPassword();
 });
 
 function getUserForHead(){
@@ -25,24 +24,24 @@ function getUserForHead(){
         $("#user-info").html(profile);
     });
 }
-function editPassword(){
-    let form = document.forms["editPasswordForm"];
-
-    console.log(form.currentPassword.value)
-    console.log(form.editPassword.value)
-
-    let dataObject = {
-        'currentPassword' : form.currentPassword.value,
-        'editPassword' : form.editPassword.value
-    };
-
-    $.ajax({
-        url: '/api/user/edit/profile',
-        dataType: 'json',
-        contentType: 'application/json',
-        type: 'PUT',
-        cache: false,
-        data: JSON.stringify(dataObject)
-    });
-
-}
+//function editPassword(){
+//    let form = $("#editPasswordForm");
+//
+//    console.log(form.currentPassword.value)
+//    console.log(form.editPassword.value)
+//
+//    let dataObject = {
+//        'currentPassword' : form.currentPassword.value,
+//        'editPassword' : form.editPassword.value
+//    };
+//
+//    $.ajax({
+//        url: '/api/user/edit/profile',
+//        dataType: 'json',
+//        contentType: 'application/json',
+//        type: 'PUT',
+//        cache: false,
+//        data: JSON.stringify(dataObject)
+//    });
+//
+//}

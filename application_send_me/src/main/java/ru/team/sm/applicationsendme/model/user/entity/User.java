@@ -21,7 +21,6 @@ import java.util.Objects;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "user_entity")
 public class User implements UserDetails {
@@ -54,6 +53,9 @@ public class User implements UserDetails {
     @JoinColumn(name = "role_id")
     @NonNull
     private Role role;
+
+    public User() {
+    }
 
     public User(@NonNull String email, @NonNull String password, @NonNull String login, @NonNull LocalDateTime timeOfRegistry, @NonNull Role role) {
         this.email = email;

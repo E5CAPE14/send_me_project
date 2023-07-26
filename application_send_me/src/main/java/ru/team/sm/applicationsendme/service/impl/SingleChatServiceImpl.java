@@ -10,12 +10,15 @@ import ru.team.sm.applicationsendme.dao.abstracts.UserDao;
 import ru.team.sm.applicationsendme.model.chat.Chat;
 import ru.team.sm.applicationsendme.model.chat.Message;
 import ru.team.sm.applicationsendme.model.chat.SingleChat;
+import ru.team.sm.applicationsendme.model.chat.dto.ChatDto;
+import ru.team.sm.applicationsendme.model.user.dto.UserDto;
 import ru.team.sm.applicationsendme.model.user.entity.User;
 import ru.team.sm.applicationsendme.service.abstracts.SingleChatService;
 import ru.team.sm.applicationsendme.service.exception.ChatException;
 import ru.team.sm.applicationsendme.service.exception.UserNotFoundException;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,9 +26,7 @@ import java.util.Optional;
 public class SingleChatServiceImpl extends ReadWriteServiceImpl<SingleChat, Integer> implements SingleChatService {
 
     private final SingleChatDao singleChatDao;
-
     private final ChatDao chatDao;
-
     private final UserDao userDao;
     private final MessageDao messageDao;
 
@@ -35,6 +36,21 @@ public class SingleChatServiceImpl extends ReadWriteServiceImpl<SingleChat, Inte
         this.chatDao = chatDao;
         this.userDao = userDao;
         this.messageDao = messageDao;
+    }
+
+    @Override
+    public List<ChatDto> getAllChatDto(){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        List<SingleChat> singleChat = singleChatDao.getAllSingleChatForUser(user.getId());
+        List<ChatDto> chatDtos = new ArrayList<>();
+        for (SingleChat sc:singleChat) {
+            ChatDto chatDto = new ChatDto();
+            chatDto.setId(sc.getId());
+            chatDto.setUsers(List.of(new UserDto(sc.getUserOne()),new UserDto(sc.getUserTwo())));
+            chatDto.setTime_creation(sc.getChat().getPersistDate());
+            chatDtos.add(chatDto);
+        }
+        return chatDtos;
     }
 
     @Override

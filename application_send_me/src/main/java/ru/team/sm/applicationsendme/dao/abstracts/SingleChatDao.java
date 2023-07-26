@@ -2,6 +2,7 @@ package ru.team.sm.applicationsendme.dao.abstracts;
 
 import ru.team.sm.applicationsendme.model.chat.SingleChat;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface SingleChatDao extends ReadWriteDao<SingleChat,Integer>{
@@ -12,4 +13,6 @@ public interface SingleChatDao extends ReadWriteDao<SingleChat,Integer>{
     Optional<Integer> getCharIdByUserIds(Integer userOneId, Integer userTwoId);
 
     int existChatByUsers(Integer userOneId, Integer userTwoId);
+
+    List<SingleChat> getAllSingleChatForUser(Integer userId);
 }
